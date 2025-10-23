@@ -5,6 +5,9 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+permissions:
+  contents: write   # needed for gh-pages push
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,55 +15,59 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # R + repos cache
+      # R (match your local if you like) + use Posit RSPM for faster installs
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.4.1'         # match your local, or keep 4.3.1 if you prefer
+          r-version: '4.4.1'
           use-public-rspm: true
 
-      # Quarto (bundles pandoc for Quarto, but we also install pandoc for Rmd deps below)
+      # Quarto CLI
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: '1.5.57'
 
-      # ---------- NEW: system libraries your R pkgs need ----------
+      # System libraries required by common R packages (curl, xml2, stringi, etc.)
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libcurl4-openssl-dev \  # for curl
-            libxml2-dev \           # for xml2/readr/etc
-            libnode-dev \           # for V8
-            libx11-dev \            # for clipr/graphics deps
-            pandoc                  # for rmarkdown/knitr usage
+          sudo apt-get install -y --no-install-recommends \
+            libcurl4-openssl-dev \
+            libxml2-dev \
+            libicu-dev \
+            libnode-dev \
+            libx11-dev \
+            pandoc
 
-      # renv restore (uses CRAN via RSPM)
+      # Restore R package library with renv
       - name: Install renv and restore
         run: |
           Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
           Rscript -e "renv::restore()"
 
-      # Fallback install (if restore had any misses)
+      # If restore failed, fall back to our simple installer script
       - name: Fallback install (if restore fails)
         if: failure()
         run: |
           Rscript renv/requirements.R
 
+      # Run unit tests
       - name: Run tests
         run: |
           Rscript -e "testthat::test_dir('R/tests')"
 
-      # Be explicit about the execution directory so source('R/...') works in CI
+      # Render Quarto docs; be explicit about execution dir for reliable sourcing
       - name: Render Quarto
         run: |
           quarto render tlf/ --execute-dir .
 
+      # Upload the rendered outputs as a build artifact
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: outputs
           path: outputs/
 
+      # Publish the outputs/ folder to gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
