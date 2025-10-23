@@ -1,0 +1,76 @@
+[2025-10-23 13:28:15] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:28:16] () Listing rows: 6
+[2025-10-23 13:28:22] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:28:22] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:28:22] () Rendering figures
+[2025-10-23 13:28:29] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:28:29] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:28:29] () Computing NCA (AUC, Cmax, Tmax) with PKNCA
+[2025-10-23 13:29:56] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:29:56] () Listing rows: 6
+[2025-10-23 13:30:00] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:30:00] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:30:00] () Rendering figures
+[2025-10-23 13:30:06] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:30:06] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:30:06] () Computing NCA (AUC, Cmax, Tmax) with PKNCA (formula interface)
+[2025-10-23 13:32:26] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:32:27] () Listing rows: 6
+[2025-10-23 13:32:31] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:32:31] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:32:31] () Rendering figures
+[2025-10-23 13:32:37] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:32:37] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:32:37] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 13:32:37] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 13:32:37] () NCA rows: 1
+[2025-10-23 13:36:41] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:36:42] () Listing rows: 6
+[2025-10-23 13:36:46] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:36:46] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:36:46] () Rendering figures
+[2025-10-23 13:36:50] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:36:51] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:36:51] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 13:36:51] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 13:36:51] () NCA rows: 1
+[2025-10-23 13:38:48] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:38:48] () Listing rows: 132
+[2025-10-23 13:38:52] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:38:53] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:38:53] () Rendering figures
+[2025-10-23 13:38:58] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 13:38:58] () Deriving ADPC (ADaM-like)
+[2025-10-23 13:38:58] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 13:38:58] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 13:38:58] () NCA rows: 12
+[2025-10-23 14:20:15] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:20:16] () Listing rows: 132
+[2025-10-23 14:20:20] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:20:20] () Deriving ADPC (ADaM-like)
+[2025-10-23 14:20:20] () Rendering figures
+[2025-10-23 14:20:26] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:20:26] () Deriving ADPC (ADaM-like)
+[2025-10-23 14:20:26] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 14:20:26] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 14:20:26] () NCA rows: 12
+[2025-10-23 14:21:16] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:21:16] () Listing rows: 132
+[2025-10-23 14:21:20] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:21:20] () Deriving ADPC (ADaM-like)
+[2025-10-23 14:21:20] () Rendering figures
+[2025-10-23 14:21:25] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 14:21:26] () Deriving ADPC (ADaM-like)
+[2025-10-23 14:21:26] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 14:21:26] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 14:21:26] () NCA rows: 12
+[2025-10-23 15:01:35] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 15:01:35] () Listing rows: 132
+[2025-10-23 15:01:40] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 15:01:40] () Deriving ADPC (ADaM-like)
+[2025-10-23 15:01:40] () Rendering figures
+[2025-10-23 15:01:46] () Loading Theoph and building SDTM-like DM/PC
+[2025-10-23 15:01:46] () Deriving ADPC (ADaM-like)
+[2025-10-23 15:01:46] () Computing NCA (AUC, Cmax, Tmax)
+[2025-10-23 15:01:46] () PKNCA failed; using manual trapezoid fallback
+[2025-10-23 15:01:46] () NCA rows: 12

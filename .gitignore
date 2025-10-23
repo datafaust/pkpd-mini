@@ -4,11 +4,6 @@
 .Rproj.user/
 __MACOSX/
 
-# Quarto/outputs
-outputs/
-*_cache/
-*.knit.md
-*.utf8.md
 
 # R env
 .Rproj.user
