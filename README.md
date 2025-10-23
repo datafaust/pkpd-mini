@@ -2,8 +2,6 @@
 
 **Goal.** Demonstrate end-to-end clinical-style programming on open PK data (Theoph): map SDTM-like domains, derive an ADaM-like analysis dataset, compute basic NCA parameters, and generate TLFs (tables, listings, figures) in a reproducible Quarto pipeline with visible QC and traceability.
 
-**Why this matters (recruiters/ATS).** Hits clinical signals: **TLFs**, **derived datasets**, **specs→code**, **QC/traceability**, **PK/PD terminology** (AUC, Cmax, Tmax), **CDISC-like naming**, and **R/Quarto**. Looks sponsor-ready (structured repo, specs folder, CI, run logs) with minimal scope.
-
 **Dataset.** `datasets::Theoph` (ships with base R). No licenses/PHI.
 
 ## Outputs
