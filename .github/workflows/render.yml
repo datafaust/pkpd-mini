@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # needed for gh-pages push
+  contents: write   # required to push to gh-pages
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # R (match your local if you like) + use Posit RSPM for faster installs
+      # R (match local if you want) + Posit RSPM for faster/consistent installs
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.4.1'
@@ -26,7 +26,7 @@ jobs:
         with:
           version: '1.5.57'
 
-      # System libraries required by common R packages (curl, xml2, stringi, etc.)
+      # System libraries needed by common R packages (curl, xml2, stringi, etc.)
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -38,24 +38,23 @@ jobs:
             libx11-dev \
             pandoc
 
-      # Restore R package library with renv
+      # Restore project library with renv
       - name: Install renv and restore
         run: |
           Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
           Rscript -e "renv::restore()"
 
-      # If restore failed, fall back to our simple installer script
-      - name: Fallback install (if restore fails)
-        if: failure()
+      # Ensure key R packages exist even if lock/restore missed them (then you can remove later)
+      - name: Ensure testing/render helpers
         run: |
-          Rscript renv/requirements.R
+          Rscript -e "pkgs <- c('testthat','yaml','tidyr'); inst <- rownames(installed.packages()); missing <- setdiff(pkgs, inst); if (length(missing)) install.packages(missing, repos='https://cloud.r-project.org')"
 
       # Run unit tests
       - name: Run tests
         run: |
           Rscript -e "testthat::test_dir('R/tests')"
 
-      # Render Quarto docs; be explicit about execution dir for reliable sourcing
+      # Render Quarto docs; be explicit about execution dir so source('R/...') works
       - name: Render Quarto
         run: |
           quarto render tlf/ --execute-dir .
@@ -67,7 +66,7 @@ jobs:
           name: outputs
           path: outputs/
 
-      # Publish the outputs/ folder to gh-pages
+      # Publish outputs/ to gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
