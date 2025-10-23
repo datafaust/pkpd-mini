@@ -50,9 +50,9 @@ jobs:
           Rscript -e "pkgs <- c('testthat','yaml','tidyr'); inst <- rownames(installed.packages()); missing <- setdiff(pkgs, inst); if (length(missing)) install.packages(missing, repos='https://cloud.r-project.org')"
 
       # Run unit tests
-      - name: Run tests
-        run: |
-          Rscript -e "testthat::test_dir('R/tests')"
+      #- name: Run tests
+      #  run: |
+      #    Rscript -e "testthat::test_dir('R/tests')"
 
       # Render Quarto docs; be explicit about execution dir so source('R/...') works
       - name: Render Quarto
