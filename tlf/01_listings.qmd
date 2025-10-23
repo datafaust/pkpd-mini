@@ -1,0 +1,28 @@
+---
+title: "Subject-Level Concentration–Time Listing"
+format: html
+---
+
+```{r}
+source("R/00_utils.R")
+source("R/01_load_sdtm_like.R")
+objs <- load_dm_pc()
+DM <- objs$DM; PC <- objs$PC
+log_run(sprintf("Listing rows: %s", nrow(PC)))
+```
+
+**Inputs → Derivations → Output**  
+*Inputs:* DM-like, PC-like → *Derivations:* keys/labels → *Output:* listing
+
+```{r}
+library(dplyr); library(gt)
+lst <- PC |>
+  order_usubjid() |>
+  dplyr::arrange(USUBJID, PCTPTNUM) |>
+  dplyr::rename(Time_h = PCTPTNUM, Conc_mgL = PCSTRESN)
+
+gt::gt(lst) |>
+  gt::tab_header(title = "Subject-Level Concentration–Time Listing") |>
+  gt::fmt_number(columns = c(Time_h, Conc_mgL), decimals = 2) |>
+  gt::tab_footnote("SDTM-like demo; times in hours; concentrations in mg/L.")
+```

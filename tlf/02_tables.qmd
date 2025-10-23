@@ -1,0 +1,29 @@
+---
+title: "NCA Summary by Subject (AUC, Cmax, Tmax)"
+format: html
+---
+
+```{r}
+source("R/00_utils.R")
+source("R/01_load_sdtm_like.R")
+source("R/02_derive_adpc.R")
+source("R/03_nca.R")
+objs <- load_dm_pc()
+ADPC <- derive_adpc(objs$DM, objs$PC)
+NCA <- compute_nca(ADPC)
+log_run(sprintf("NCA rows: %s", nrow(NCA)))
+```
+
+**Inputs → Derivations → Output**  
+*Inputs:* ADPC → *Derivations:* PKNCA summary → *Output:* NCA table
+
+```{r}
+library(dplyr); library(gt)
+NCA |>
+  order_usubjid() |>
+  arrange(USUBJID) |>
+  gt::gt() |>
+  gt::tab_header(title = "NCA Summary by Subject") |>
+  gt::fmt_number(columns = c(AUC, Cmax, Tmax), decimals = 3) |>
+  gt::tab_footnote("Parameters via PKNCA; values rounded to 3 decimals.")
+```

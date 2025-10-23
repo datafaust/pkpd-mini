@@ -1,0 +1,17 @@
+project:
+  type: default
+  output-dir: outputs
+
+execute-dir: project 
+
+format:
+  html:
+    toc: true
+    number-sections: false
+    theme: cosmo
+    df-print: paged
+
+execute:
+  echo: true
+  warning: false
+  message: false

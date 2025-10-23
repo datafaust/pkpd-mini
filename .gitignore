@@ -1,0 +1,18 @@
+# OS & editor
+.DS_Store
+.Rhistory
+.Rproj.user/
+__MACOSX/
+
+# Quarto/outputs
+outputs/
+*_cache/
+*.knit.md
+*.utf8.md
+
+# R env
+.Rproj.user
+.Rprofile
+.Rproj.user/
+
+/.quarto/

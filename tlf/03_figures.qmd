@@ -1,0 +1,55 @@
+---
+title: "Concentration–Time (Spaghetti + Mean) & Exposure–Response Demo"
+format: html
+---
+
+```{r}
+source("R/00_utils.R")
+source("R/01_load_sdtm_like.R")
+source("R/02_derive_adpc.R")
+objs <- load_dm_pc()
+ADPC <- derive_adpc(objs$DM, objs$PC)
+log_run("Rendering figures")
+```
+
+**Inputs → Derivations → Output**  
+*Inputs:* ADPC → *Derivations:* group/summary → *Output:* figures
+
+```{r}
+# ---- Robust synthetic exposure–response ----
+library(dplyr); library(ggplot2)
+
+by_subj <- ADPC %>%
+  group_by(USUBJID) %>%
+  summarise(Cmax = max(PCSTRESN, na.rm = TRUE), .groups = "drop")
+
+# If all Cmax are identical (or nearly), add a tiny jitter so we can plot
+if (dplyr::n_distinct(by_subj$Cmax) < 3) {
+  set.seed(1)
+  by_subj <- by_subj %>% mutate(Cmax = Cmax + rnorm(n(), sd = 1e-3))
+}
+
+# Synthetic responder: median split (guarantees two classes if there is any variance)
+med <- median(by_subj$Cmax, na.rm = TRUE)
+by_subj <- by_subj %>%
+  mutate(
+    Responder = factor(ifelse(Cmax >= med, "Yes", "No"), levels = c("No","Yes")),
+    y = as.integer(Responder == "Yes")
+  )
+
+p2 <- ggplot(by_subj, aes(x = Cmax, y = y)) +
+  geom_jitter(height = 0.05) +
+  # Only fit a logistic curve if both classes exist
+  { if (dplyr::n_distinct(by_subj$y) > 1)
+      geom_smooth(method = "glm", method.args = list(family = binomial()))
+    else
+      NULL } +
+  labs(
+    x = "Cmax (mg/L)",
+    y = "Pr(Response) [synthetic]",
+    title = "Exposure–Response (Synthetic Demo)"
+  )
+
+print(p2)
+
+```
