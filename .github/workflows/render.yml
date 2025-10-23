@@ -8,31 +8,59 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      # R + repos cache
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.3.1'
+          r-version: '4.4.1'         # match your local, or keep 4.3.1 if you prefer
+          use-public-rspm: true
+
+      # Quarto (bundles pandoc for Quarto, but we also install pandoc for Rmd deps below)
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: '1.5.57'
+
+      # ---------- NEW: system libraries your R pkgs need ----------
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcurl4-openssl-dev \  # for curl
+            libxml2-dev \           # for xml2/readr/etc
+            libnode-dev \           # for V8
+            libx11-dev \            # for clipr/graphics deps
+            pandoc                  # for rmarkdown/knitr usage
+
+      # renv restore (uses CRAN via RSPM)
       - name: Install renv and restore
         run: |
-          Rscript -e "install.packages('renv', repos='https://cloud.r-project.org'); renv::restore()"
+          Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
+          Rscript -e "renv::restore()"
+
+      # Fallback install (if restore had any misses)
       - name: Fallback install (if restore fails)
+        if: failure()
         run: |
           Rscript renv/requirements.R
+
       - name: Run tests
         run: |
           Rscript -e "testthat::test_dir('R/tests')"
+
+      # Be explicit about the execution directory so source('R/...') works in CI
       - name: Render Quarto
         run: |
-          quarto render tlf/
+          quarto render tlf/ --execute-dir .
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: outputs
           path: outputs/
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -40,4 +68,3 @@ jobs:
           publish_branch: gh-pages
           publish_dir: outputs
           force_orphan: true
-
